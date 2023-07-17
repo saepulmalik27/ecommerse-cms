@@ -1,5 +1,7 @@
 import React from "react";
 import { list } from "./sidebar.types";
+import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 export const sidebarmenu: Array<list> = [
     {
@@ -15,12 +17,9 @@ export const sidebarmenu: Array<list> = [
 ];
 
 const useSidebar = () => {
-    const [active, setActive] = React.useState<list>(sidebarmenu[0]);
-
     const [isOpenSidebar, setIsOpenSidebar] = React.useState<boolean>(false);
 
-    const handleClickMenu = (list: list) => {
-        setActive(list);
+    const handleClickMenu = () => {
         handleOpenSidebar();
     };
 
@@ -28,12 +27,14 @@ const useSidebar = () => {
         setIsOpenSidebar(!isOpenSidebar);
     };
 
+    const currentRouterPath = usePathname();
+
     return {
         lists: sidebarmenu,
-        activeMenu: active,
         handleClickMenu,
         handleOpenSidebar,
         isOpenSidebar,
+        currentRouterPath,
     };
 };
 

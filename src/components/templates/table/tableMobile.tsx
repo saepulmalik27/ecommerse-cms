@@ -1,8 +1,10 @@
 import React from "react";
 import { TableProps } from "./table.types";
 import { twMerge } from "tailwind-merge";
+import useTable from "./useTable";
 
 const TableMobile: React.FC<TableProps> = ({ columns, data }) => {
+    const { formatedColumn } = useTable();
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
             {data.map((row, index) => {
@@ -28,8 +30,8 @@ const TableMobile: React.FC<TableProps> = ({ columns, data }) => {
                                                 "font-bold"
                                             )}
                                         >
-                                            {row[column.field]}
-                                        </span>{" "}
+                                            {formatedColumn(column, row)}
+                                        </span>
                                     </div>
                                 </div>
                             );

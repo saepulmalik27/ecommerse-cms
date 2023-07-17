@@ -1,10 +1,14 @@
 import { TableHeaderProps } from "@/components/templates/table/table.types";
 import { listProduct } from "@/redux/features/product.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { productApi } from "@/redux/services/productApi";
+import {
+    productApi,
+    useGetAllProductCategoriesQuery,
+} from "@/redux/services/productApi";
+import { formatCurrency } from "@/utils/helper";
 import React, { useCallback, useEffect } from "react";
 
-const productColumns: Array<TableHeaderProps> = [
+export const productColumns: Array<TableHeaderProps> = [
     {
         field: "title",
         title: "Product Name",
@@ -24,6 +28,9 @@ const productColumns: Array<TableHeaderProps> = [
         field: "price",
         title: "Price",
         sortable: true,
+        callback: value => {
+            return formatCurrency(Number(value));
+        },
     },
     {
         field: "category",
@@ -53,6 +60,13 @@ const useProductView = () => {
         },
     ] = productApi.useLazyGetFilteredProductsQuery();
 
+    const { data: listcategory } = useGetAllProductCategoriesQuery({});
+
+    const [
+        handleFetchFilteredDataCategory,
+        { data: filterCategory, isSuccess: isSuccessFilterCategory },
+    ] = productApi.useLazyGetFilterProductCategoriesQuery();
+
     useEffect(() => {
         handleFetchData({
             limit: 10,
@@ -70,6 +84,12 @@ const useProductView = () => {
             dispatch(listProduct(filteredProducts));
         }
     }, [isFilteredSuccess, filteredProducts]);
+
+    useEffect(() => {
+        if (isSuccessFilterCategory && filterCategory) {
+            dispatch(listProduct(filterCategory));
+        }
+    }, [isSuccessFilterCategory, filterCategory]);
 
     const handlePagination = useCallback(
         (skip: number) => {
@@ -97,11 +117,21 @@ const useProductView = () => {
         });
     };
 
+    const handleFilterCategory = (value: string) => {
+        handleFetchFilteredDataCategory({
+            category: value,
+            limit: 10,
+            skip: 0,
+        });
+    };
+
     return {
         handleChange,
         data: dataProducts,
         productColumns,
         handlePagination,
+        listcategory,
+        handleFilterCategory,
     };
 };
 

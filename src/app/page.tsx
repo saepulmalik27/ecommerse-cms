@@ -1,17 +1,37 @@
 "use client";
 import Search from "@/components/atoms/search";
 import Table from "@/components/templates/table";
-import useProductView from "@/app/useProductView";
+import useProductView from "@/hooks/useProductView";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import Pagination from "@/components/molecules/pagination";
+import NoContent from "@/components/templates/nocontent";
+import Select from "@/components/molecules/select";
 
 export default function Home() {
-    const { handleChange, data, productColumns, handlePagination } =
-        useProductView();
+    const {
+        handleChange,
+        data,
+        productColumns,
+        handlePagination,
+        handleFilterCategory,
+        listcategory,
+    } = useProductView();
     return (
         <div className={twMerge("flex flex-col gap-4")}>
-            <div className={twMerge("flex justify-end ")}>
+            <div
+                className={twMerge(
+                    "flex flex-col sm:flex-row gap-2 justify-end "
+                )}
+            >
+                {listcategory && (
+                    <Select
+                        options={listcategory}
+                        placeholder="Filter by category"
+                        onSelect={handleFilterCategory}
+                    />
+                )}
+
                 <Search placeholder="Product Name" onChange={handleChange} />
             </div>
             {data && data.products && data.products.length > 0 ? (
@@ -25,9 +45,7 @@ export default function Home() {
                     />
                 </React.Fragment>
             ) : (
-                <div className="text-center text-2xl text-gray-500">
-                    No Data
-                </div>
+                <NoContent />
             )}
         </div>
     );

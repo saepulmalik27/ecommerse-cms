@@ -38,19 +38,19 @@ const SidebarList: React.FC<SidebarMenuProps> = ({
 };
 const Sidebar = () => {
     const {
-        activeMenu,
         handleClickMenu,
         lists,
         handleOpenSidebar,
         isOpenSidebar,
+        currentRouterPath,
     } = useSidebar();
     const { isScreenLG } = useResponsive();
     return (
         <React.Fragment>
-            <div className={twMerge("flex gap-1")}>
+            <div className={twMerge("flex gap-2")}>
                 <aside
                     className={twMerge(
-                        "w-0 lg:w-64 bg-primary bg-opacity-20 lg:p-6 tranition duration-300 ease-in-out flex-col gap-2 overflow-hidden ",
+                        "w-0 lg:w-64 bg-primary bg-opacity-20 lg:p-6 tranition duration-300 ease-in-out flex flex-col gap-4 overflow-hidden ",
                         isOpenSidebar && !isScreenLG
                             ? "w-64 bg-opacity-60"
                             : "w-0"
@@ -74,8 +74,8 @@ const Sidebar = () => {
                                 <SidebarList
                                     key={index}
                                     list={list}
-                                    active={activeMenu.path === list.path}
-                                    onClick={() => handleClickMenu(list)}
+                                    active={currentRouterPath === list.path}
+                                    onClick={handleClickMenu}
                                 >
                                     {list.children && (
                                         <ul className="pl-4">
@@ -86,13 +86,11 @@ const Sidebar = () => {
                                                             key={index}
                                                             list={child}
                                                             active={
-                                                                activeMenu.path ===
+                                                                currentRouterPath ===
                                                                 child.path
                                                             }
-                                                            onClick={() =>
-                                                                handleClickMenu(
-                                                                    child
-                                                                )
+                                                            onClick={
+                                                                handleClickMenu
                                                             }
                                                         />
                                                     );

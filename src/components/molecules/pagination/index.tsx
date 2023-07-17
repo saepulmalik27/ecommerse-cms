@@ -28,13 +28,21 @@ const Pagination: React.FC<PaginationProps> = ({
 
     return (
         <div className="flex justify-end gap-3 items-center">
-            <Button onClick={handlePrev} disabled={currentPage === 1}>
+            <Button
+                onClick={handlePrev}
+                className="bg-primary text-white hover:bg-secondary"
+                disabled={currentPage === 1}
+            >
                 Prev
             </Button>
             <p className="text-sm">
                 Page {currentPage} of {totalPage}
             </p>
-            <Button onClick={handleNext} disabled={currentPage === totalPage}>
+            <Button
+                onClick={handleNext}
+                className="bg-primary text-white hover:bg-secondary"
+                disabled={currentPage === totalPage}
+            >
                 Next
             </Button>
         </div>

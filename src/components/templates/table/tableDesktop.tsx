@@ -1,8 +1,11 @@
 import React from "react";
-import { TableProps } from "./table.types";
+import { TableHeaderProps, TableProps } from "./table.types";
 import { twMerge } from "tailwind-merge";
+import useTable from "./useTable";
 
 const TableDesktop: React.FC<TableProps> = ({ columns, data }) => {
+    const { formatedColumn } = useTable();
+
     return (
         <div className="overflow-auto rounded-lg shadow  hidden md:block">
             <table className="w-full shadow border-collapse border border-gary-200 ">
@@ -35,7 +38,7 @@ const TableDesktop: React.FC<TableProps> = ({ columns, data }) => {
                                             className="border border-gray-200 text-sm p-3 text-gray-700 whitespace-nowrap"
                                             key={index}
                                         >
-                                            {row[column.field]}
+                                            {formatedColumn(column, row)}
                                         </td>
                                     );
                                 })}
