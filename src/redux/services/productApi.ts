@@ -15,13 +15,20 @@ type Product = {
     images: Array<string>;
 };
 
+type ProductData = {
+    products: Product[];
+    total: number;
+    skip: number;
+    limit: number;
+};
+
 export const productApi = createApi({
     reducerPath: "productApi",
     refetchOnFocus: true,
     baseQuery: baseQuery,
     tagTypes: ["products"],
     endpoints: builder => ({
-        getProducts: builder.query<Product[], {}>({
+        getProducts: builder.query<ProductData, {}>({
             query: ({ ...params }) => ({
                 url: "products",
                 method: "GET",
@@ -31,10 +38,23 @@ export const productApi = createApi({
             }),
             providesTags: ["products"],
         }),
+        getFilteredProducts: builder.query<ProductData, {}>({
+            query: ({ ...params }) => ({
+                url: "products/search",
+                method: "GET",
+                params: {
+                    ...params,
+                },
+            }),
+        }),
         getProductById: builder.query<Product, { id: string }>({
             query: ({ id }) => `products/${id}`,
         }),
     }),
 });
 
-export const { useGetProductByIdQuery, useGetProductsQuery } = productApi;
+export const {
+    useGetProductByIdQuery,
+    useGetProductsQuery,
+    useGetFilteredProductsQuery,
+} = productApi;
