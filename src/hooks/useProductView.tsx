@@ -64,7 +64,12 @@ const useProductView = () => {
 
     const [
         handleFetchFilteredDataCategory,
-        { data: filterCategory, isSuccess: isSuccessFilterCategory },
+        {
+            data: filterCategory,
+            isSuccess: isSuccessFilterCategory,
+            isLoading: isLoadingFilterCategory,
+            isFetching: isFetchingFilterCategory,
+        },
     ] = productApi.useLazyGetFilterProductCategoriesQuery();
 
     useEffect(() => {
@@ -132,6 +137,13 @@ const useProductView = () => {
         handlePagination,
         listcategory,
         handleFilterCategory,
+        isLoading:
+            isLoading ||
+            isFetching ||
+            isFilteredLoading ||
+            isFilteredFetching ||
+            isFetchingFilterCategory ||
+            isLoadingFilterCategory,
     };
 };
 

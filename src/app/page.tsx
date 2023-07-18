@@ -7,6 +7,7 @@ import { twMerge } from "tailwind-merge";
 import Pagination from "@/components/molecules/pagination";
 import NoContent from "@/components/templates/nocontent";
 import Select from "@/components/molecules/select";
+import TableLoader from "@/components/templates/table/tableLoader";
 
 export default function Home() {
     const {
@@ -16,6 +17,7 @@ export default function Home() {
         handlePagination,
         handleFilterCategory,
         listcategory,
+        isLoading,
     } = useProductView();
     return (
         <div className={twMerge("flex flex-col gap-4")}>
@@ -35,21 +37,29 @@ export default function Home() {
 
                 <Search placeholder="Product Name" onChange={handleChange} />
             </section>
-            <section className="flex flex-col gap-4">
-                {data && data.products && data.products.length > 0 ? (
-                    <React.Fragment>
-                        <Table columns={productColumns} data={data.products} />
-                        <Pagination
-                            limit={data.limit}
-                            skip={data.skip}
-                            total={data.total}
-                            onPaginate={handlePagination}
-                        />
-                    </React.Fragment>
-                ) : (
-                    <NoContent />
-                )}
-            </section>
+
+            {isLoading ? (
+                <TableLoader />
+            ) : (
+                <section className="flex flex-col gap-4">
+                    {data && data.products && data.products.length > 0 ? (
+                        <React.Fragment>
+                            <Table
+                                columns={productColumns}
+                                data={data.products}
+                            />
+                            <Pagination
+                                limit={data.limit}
+                                skip={data.skip}
+                                total={data.total}
+                                onPaginate={handlePagination}
+                            />
+                        </React.Fragment>
+                    ) : (
+                        <NoContent />
+                    )}
+                </section>
+            )}
         </div>
     );
 }

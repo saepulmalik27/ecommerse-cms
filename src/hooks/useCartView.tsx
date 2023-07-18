@@ -91,6 +91,7 @@ const useCartView = () => {
         data,
         handlePagination,
         colums: dataColumns,
+        isLoading: isLoading || isFetching,
     };
 };
 
