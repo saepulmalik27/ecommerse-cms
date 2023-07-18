@@ -10,6 +10,11 @@ export const sidebarmenu: Array<list> = [
         path: "/",
     },
     {
+        icon: "icons/chart-line-up.svg",
+        name: "Analytics",
+        path: "/dashboard",
+    },
+    {
         icon: "icons/shopping-cart.svg",
         name: "Carts",
         path: "/cart",

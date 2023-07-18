@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 
-type Product = {
+export type TProduct = {
     id: number;
     title: string;
     description: string;
@@ -16,7 +16,7 @@ type Product = {
 };
 
 type ProductData = {
-    products: Product[];
+    products: TProduct[];
     total: number;
     skip: number;
     limit: number;
@@ -47,7 +47,7 @@ export const productApi = createApi({
                 },
             }),
         }),
-        getProductById: builder.query<Product, { id: string }>({
+        getProductById: builder.query<TProduct, { id: string }>({
             query: ({ id }) => `products/${id}`,
         }),
         getAllProductCategories: builder.query<string[], {}>({
