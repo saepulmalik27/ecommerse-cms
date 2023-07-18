@@ -14,7 +14,7 @@ const PieChart: React.FC<ChartProps> = ({ data }) => {
                     plugins: {
                         title: {
                             display: true,
-                            text: "Products to stock",
+                            text: "",
                         },
                     },
                 }}

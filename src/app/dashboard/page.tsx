@@ -50,7 +50,7 @@ const Dashboard = () => {
         labels: ProductPerCategory.map(data => data.category),
         datasets: [
             {
-                label: "Category Per Product",
+                label: "Product per Category",
                 data: ProductPerCategory.map(data => data.total),
                 backgroundColor: Colors,
                 borderColor: "black",
