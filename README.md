@@ -16,15 +16,13 @@ Create CMS using data from dummyjson.com
 
 this project using tools
 
-| No  | Description                 |
-| --- | --------------------------- |
-| 1   | NextJs                      |
-| 2   | React                       |
-| 3   | Typescript                  |
-| 4   | Tailwindcss                 |
-| 5   | HeadlessUI                  |
-| 6   | react-intersection-observer |
-| 7   | framer-motion               |
+| No  | Description |
+| --- | ----------- |
+| 1   | NextJs      |
+| 2   | React       |
+| 3   | Typescript  |
+| 4   | Tailwindcss |
+| 5   | HeadlessUI  |
 
 ## Getting Started
 
