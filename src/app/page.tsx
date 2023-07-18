@@ -19,6 +19,7 @@ export default function Home() {
     } = useProductView();
     return (
         <div className={twMerge("flex flex-col gap-4")}>
+            <h1 className="text-2xl font-bold">Product</h1>
             <section
                 className={twMerge(
                     "flex flex-col sm:flex-row gap-2 justify-end "

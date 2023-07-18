@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { Pie, ChartProps } from "react-chartjs-2";
+import { ChartProps, Line } from "react-chartjs-2";
 
-const PieChart: React.FC<ChartProps> = ({ data }) => {
+const LineChart: React.FC<ChartProps> = ({ data }) => {
     return (
         <div className="w-full">
-            <Pie
+            <Line
                 //@ts-ignore
                 data={data}
                 options={{
@@ -21,4 +21,4 @@ const PieChart: React.FC<ChartProps> = ({ data }) => {
         </div>
     );
 };
-export default PieChart;
+export default LineChart;

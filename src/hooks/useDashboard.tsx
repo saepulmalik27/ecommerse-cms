@@ -13,6 +13,19 @@ export enum EAnalyticType {
     PRODUCT_PER_CATEGORY = "Product per Category",
 }
 
+export enum EChartType {
+    BAR = "bar",
+    LINE = "line",
+    PIE = "pie",
+}
+
+const listAnalytic = [
+    EAnalyticType.PRODUCT_PER_CATEGORY,
+    EAnalyticType.PRODUCT_STOCK,
+];
+
+const listChartType = [EChartType.BAR, EChartType.LINE, EChartType.PIE];
+
 const useDashboard = () => {
     const Data: TProduct[] = Product.products;
     const ProductPerCategory: TCategoryTotal[] = Data.reduce(
@@ -69,14 +82,25 @@ const useDashboard = () => {
         analyticData[EAnalyticType.PRODUCT_PER_CATEGORY]
     );
 
+    const [charType, setCharType] = useState<EChartType>(EChartType.BAR);
+
     const handleSelect = (value: string) => {
         // @ts-ignore
         setChartData(analyticData[value]);
     };
 
+    const handleSelectChart = (value: string) => {
+        // @ts-ignore
+        setCharType(value);
+    };
+
     return {
         chartData,
         handleSelect,
+        listAnalytic,
+        listChartType,
+        handleSelectChart,
+        charType,
     };
 };
 

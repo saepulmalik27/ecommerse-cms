@@ -7,7 +7,7 @@ const CartDetail = () => {
     const { data, dataProduct, colums } = useCartDetailView();
     return (
         <div className="flex flex-col gap-5">
-            <h1>Cart {data?.id}</h1>
+            <h1 className="text-2xl font-bold">Cart {data?.id} </h1>
             <section className="flex flex-col gap-2">
                 <h1>Details</h1>
                 <div className="p-3 border border-gray-200 rounded-md bg-primary bg-opacity-20 grid grid-cols-2 text-sm tracking-wide leading-6 ">
