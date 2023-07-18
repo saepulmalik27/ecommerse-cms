@@ -3,39 +3,11 @@
 import React from "react";
 import useSidebar from "./useSidebar";
 import SVG from "react-inlinesvg";
-import Link from "next/link";
-import { SidebarMenuProps } from "./sidebar.types";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import useResponsive from "@/utils/hooks/useResponsive";
+import SidebarList from "./sidebarlist";
 
-const SidebarList: React.FC<SidebarMenuProps> = ({
-    list,
-    active,
-    onClick,
-    children,
-}) => {
-    return (
-        <li
-            className={twMerge(
-                "py-2 px-4 hover:bg-primary hover:text-white transition duration-300 ease-in",
-                active
-                    ? "border-l-primary border-l-4 text-primary font-bold"
-                    : "text-tertiary"
-            )}
-        >
-            <Link
-                href={list.path}
-                className={twMerge(`flex items-center gap-2`)}
-                onClick={onClick}
-            >
-                <SVG src={list.icon} className="w-6 h-6 aspect-square" />
-                <span>{list.name}</span>
-            </Link>
-            {children}
-        </li>
-    );
-};
 const Sidebar = () => {
     const {
         handleClickMenu,
@@ -47,12 +19,12 @@ const Sidebar = () => {
     const { isScreenLG } = useResponsive();
     return (
         <React.Fragment>
-            <div className={twMerge("flex gap-2")}>
+            <div className={twMerge("gap-2  flex ")}>
                 <aside
                     className={twMerge(
                         "w-0 lg:w-64 bg-primary bg-opacity-20 lg:p-6 tranition duration-300 ease-in-out flex flex-col gap-4 overflow-hidden ",
                         isOpenSidebar && !isScreenLG
-                            ? "w-64 bg-opacity-60"
+                            ? "w-full sm:w-64 bg-opacity-60"
                             : "w-0"
                     )}
                 >

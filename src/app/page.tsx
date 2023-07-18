@@ -19,7 +19,7 @@ export default function Home() {
     } = useProductView();
     return (
         <div className={twMerge("flex flex-col gap-4")}>
-            <div
+            <section
                 className={twMerge(
                     "flex flex-col sm:flex-row gap-2 justify-end "
                 )}
@@ -33,20 +33,22 @@ export default function Home() {
                 )}
 
                 <Search placeholder="Product Name" onChange={handleChange} />
-            </div>
-            {data && data.products && data.products.length > 0 ? (
-                <React.Fragment>
-                    <Table columns={productColumns} data={data.products} />
-                    <Pagination
-                        limit={data.limit}
-                        skip={data.skip}
-                        total={data.total}
-                        onPaginate={handlePagination}
-                    />
-                </React.Fragment>
-            ) : (
-                <NoContent />
-            )}
+            </section>
+            <section className="flex flex-col gap-4">
+                {data && data.products && data.products.length > 0 ? (
+                    <React.Fragment>
+                        <Table columns={productColumns} data={data.products} />
+                        <Pagination
+                            limit={data.limit}
+                            skip={data.skip}
+                            total={data.total}
+                            onPaginate={handlePagination}
+                        />
+                    </React.Fragment>
+                ) : (
+                    <NoContent />
+                )}
+            </section>
         </div>
     );
 }
