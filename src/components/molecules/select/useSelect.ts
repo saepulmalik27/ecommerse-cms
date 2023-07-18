@@ -1,7 +1,11 @@
 import { useState } from "react";
 
-const useSelect = (data: string[], onSelect: (value: string) => void) => {
-    const [selected, setSelected] = useState("");
+const useSelect = (
+    data: string[],
+    onSelect: (value: string) => void,
+    defaultValue?: string
+) => {
+    const [selected, setSelected] = useState(defaultValue || "");
     const [query, setQuery] = useState("");
 
     const filteredData =

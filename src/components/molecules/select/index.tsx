@@ -5,7 +5,12 @@ import useSelect from "./useSelect";
 
 import SVG from "react-inlinesvg";
 
-const Select: React.FC<SelectProps> = ({ options, placeholder, onSelect }) => {
+const Select: React.FC<SelectProps> = ({
+    options,
+    placeholder,
+    onSelect,
+    defaultValue,
+}) => {
     const {
         selected,
         handleSelect,
@@ -13,7 +18,7 @@ const Select: React.FC<SelectProps> = ({ options, placeholder, onSelect }) => {
         handleSearch,
         query,
         handleClear,
-    } = useSelect(options, onSelect);
+    } = useSelect(options, onSelect, defaultValue);
     return (
         <div className=" border">
             <Combobox value={selected} onChange={handleSelect}>

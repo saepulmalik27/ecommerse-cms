@@ -1,68 +1,29 @@
 "use client";
 import React from "react";
-import Product from "@/_mockup/product.json";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { useState } from "react";
 import BarChart from "@/components/templates/chart/BarChart";
-import Colors from "@/_mockup/chart_color.json";
-import { TProduct } from "@/redux/services/productApi";
+
+import Select from "@/components/molecules/select";
+import useDashboard, { EAnalyticType } from "@/hooks/useDashboard";
 Chart.register(CategoryScale);
 
-type TCategoryTotal = {
-    category: string;
-    total: number;
-};
-
 const Dashboard = () => {
-    const Data: TProduct[] = Product.products;
-
-    const [chartData, setChartData] = useState({
-        labels: Data.map(data => data.title),
-        datasets: [
-            {
-                label: "Product Stock",
-                data: Data.map(data => data.stock),
-                backgroundColor: Colors,
-                borderColor: "black",
-                borderWidth: 2,
-            },
-        ],
-    });
-
-    const ProductPerCategory: TCategoryTotal[] = Data.reduce(
-        (acc: TCategoryTotal[], item: TProduct) => {
-            const existingCategory = acc.find(
-                (category: TCategoryTotal) =>
-                    category.category === item.category
-            );
-            if (existingCategory) {
-                existingCategory.total++;
-            } else {
-                acc.push({ category: item.category, total: 1 });
-            }
-            return acc;
-        },
-        []
-    );
-
-    const [chartData2, setChartData2] = useState({
-        labels: ProductPerCategory.map(data => data.category),
-        datasets: [
-            {
-                label: "Product per Category",
-                data: ProductPerCategory.map(data => data.total),
-                backgroundColor: Colors,
-                borderColor: "black",
-                borderWidth: 2,
-            },
-        ],
-    });
-
+    const { chartData, handleSelect } = useDashboard();
     return (
         <div>
+            <div className="w-full sm:w-80">
+                <Select
+                    options={[
+                        EAnalyticType.PRODUCT_PER_CATEGORY,
+                        EAnalyticType.PRODUCT_STOCK,
+                    ]}
+                    placeholder="Select Analytic"
+                    onSelect={handleSelect}
+                    defaultValue={EAnalyticType.PRODUCT_PER_CATEGORY}
+                />
+            </div>
             <BarChart data={chartData} type="bar" />
-            <BarChart data={chartData2} type="bar" />
         </div>
     );
 };
